@@ -21,8 +21,8 @@ def combine_all_videos(video_pairs, output_path):
         pred_clips.append(pred_clip)
     
     # Resize all videos to have the same height
-    target_height = max(max(clip.h for clip in gt_clips), max(clip.h for clip in pred_clips))
-    target_width = 400  # Center crop width
+    target_height = 275
+    target_width = 512  # Center crop width
     
     # Resize and center crop videos
     def resize_and_crop(clip):
@@ -40,8 +40,11 @@ def combine_all_videos(video_pairs, output_path):
     # Calculate total width needed
     spacing = 50  # pixels between videos (increased from 20 to 50)
     label_width = 250  # width reserved for labels (increased from 150 to 250)
-    total_width = target_width * len(gt_clips) + spacing * (len(gt_clips) - 1) + label_width + 50
-    total_height = target_height * 2 + spacing * 3 # 2 rows of videos + spacing + labels
+    # Calculate actual width needed for videos and spacing
+    video_section_width = target_width * len(gt_clips) + spacing * (len(gt_clips) - 1)
+    # Total width is label width + video section width + spacing between label and videos
+    total_width = label_width + spacing + video_section_width - 350
+    total_height = target_height * 2 + spacing * 3  # 2 rows of videos + spacing + labels
     
     # Create black background
     background = ColorClip(size=(total_width, total_height), color=(0, 0, 0))
@@ -54,25 +57,34 @@ def combine_all_videos(video_pairs, output_path):
     
     # Position the labels vertically centered in their rows and horizontally centered in label area
     label_center_x = label_width // 2
-    gt_label = gt_label.set_position((label_center_x - gt_label.w // 2, (target_height - gt_label.h) // 2)).set_duration(background.duration)
+    # Fix vertical alignment by considering spacing
+    gt_label = gt_label.set_position((label_center_x - gt_label.w // 2, spacing + (target_height - gt_label.h) // 2)).set_duration(background.duration)
     pred_label = pred_label.set_position((label_center_x - pred_label.w // 2, target_height + spacing * 2 + (target_height - pred_label.h) // 2)).set_duration(background.duration)
     
     # Position the videos
     clips_to_composite = [background, gt_label, pred_label]
     
     # Position GT videos in top row
-    x_pos = label_width
-    for clip in gt_clips:
+    x_pos = label_width + spacing  # Add spacing after label area
+    for i, clip in enumerate(gt_clips):
         clip = clip.set_position((x_pos, spacing))
         clips_to_composite.append(clip)
-        x_pos += clip.w + spacing
+        # Only add spacing if not the last video
+        if i < len(gt_clips) - 1:
+            x_pos += clip.w + spacing
+        else:
+            x_pos += clip.w
     
     # Position prediction videos in bottom row
-    x_pos = label_width
-    for clip in pred_clips:
+    x_pos = label_width + spacing  # Add spacing after label area
+    for i, clip in enumerate(pred_clips):
         clip = clip.set_position((x_pos, target_height + spacing * 2))
         clips_to_composite.append(clip)
-        x_pos += clip.w + spacing
+        # Only add spacing if not the last video
+        if i < len(pred_clips) - 1:
+            x_pos += clip.w + spacing
+        else:
+            x_pos += clip.w
     
     # Combine everything
     final_clip = CompositeVideoClip(clips_to_composite)
