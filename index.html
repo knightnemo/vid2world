@@ -37,7 +37,7 @@
   </div>
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" target="_blank" href="https://manchery.github.io/">
+      <a class="navbar-item" target="_blank" href="https://knightnemo.github.io/">
       <span class="icon">
           <i class="fas fa-home"></i>
       </span>
@@ -47,8 +47,11 @@
           More Research
         </a>
         <div class="navbar-dropdown">
-          <a class="navbar-item" target="_blank" href="https://github.com/thuml/ContextWM">
-            ContextWM
+          <a class="navbar-item" target="_blank" href="https://thuml.github.io/iVideoGPT/">
+            iVideoGPT
+          </a>
+          <a class="navbar-item" target="_blank" href="https://arxiv.org/abs/2502.01366">
+            TrajWorld
           </a>
         </div>
       </div>
@@ -177,6 +180,12 @@
               </span>
             -->
             </div>
+            <div class="is-size-5 mt-3">
+              <span class="has-text-weight-bold">TL;DR:</span> Vid2World is a general approach for transforming 
+              video diffusion models (like SORA) into interactive world models (like Genie), 
+              leveraging the high fidelity of full-sequence diffusion to enable causal, 
+              autoregressive, and action-conditioned generation.
+            </div>
           </div>
         </div>
       </div>
@@ -216,13 +225,80 @@
   </div>
 </section>
 
-
+<div class="container is-max-desktop">
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-full-width has-text-justified">
+      <h2 class="title is-3 has-text-centered">Vid2World</h2>
+      <div class="content has-text-justified">
+        <p>
+          <strong>Vid2World</strong> is a general framework for 
+          transforming full-sequence, non-causal, passive video diffusion models
+          into autoregressive, interactive, action-conditioned world models.
+        </p>
+        <p>
+          Transforming a video diffusion model to an interactive world model demands solving two fundamental gaps:
+           (i) Enabling causal generation—standard VDMs denoise whole sequences with bidirectional context, 
+           making it unsuitable for causal rollouts where predictions only
+           depend on past information; (ii) Enforcing action conditioning—VDMs are usually conditioned 
+           only on coarse, video-level inputs (e.g. text, image), lacking the ability to perform frame-level fine-grained
+           action-conditioned predictions. 
+        </p>
+      </div>
+      <br>
+      <div class="content has-text-centered">
+        <img src="./static/images/concept.pdf" class="interpolation-image" width="100%" alt="Concept of VDM to IWM transformation.">
+      </div>
+      <div class="content has-text-justified">
+        <p>
+          <b>Video Diffusion Causalization.</b> Vid2World re-architects the pretrained diffusion backbone 
+          so that each frame is generated from past context only. 
+          From the architectural perspective, it applies causal masks to temporal attention layers, and proposed a mixed weight transfer scheme for temporal convolution layers.
+          From the training perspective, to enable auto-regressive generation capabilities, 
+          it samples independent and uniform
+          noise levels in different frames, following <a href="https://arxiv.org/abs/2407.01392">Diffusion Forcing</a>.
+          These changes retain the model’s learned visual priors while enabling unlimited-horizon, stepwise causal rollout.
+        </p>
+      </div>
+      <br>
+      <div class="content has-text-centered">
+        <img src="./static/images/mwt.pdf" class="interpolation-image" width="50%" alt="Mixed Weight Transfer.">
+      </div>
+      <br>
+      <div class="content has-text-justified">
+        <p>
+          <b>Causal Action Guidance.</b> To make the causal model responsive to fine-grained actions, 
+          Vid2World extends classifier-free guidance to sequential settings. 
+          Each action is encoded with a lightweight MLP and added at its corresponding frame; 
+          during training the action is independently dropped with fixed probability, 
+          forcing the network to learn both conditional and unconditional score functions. 
+          At test time these the conditional score function and it's unconditional counterpart with the most recent action dropped out are 
+          linearly combined with a tunable guidance scale λ, 
+          offering test-time flexibility on the responsiveness
+          to fine-grained action variations.
+        </p>
+      </div>
+      <br>
+      <div class="content has-text-centered">
+        <img src="./static/images/method.pdf" class="interpolation-image" width="100%" alt="Training and Inference of Vid2World.">
+      </div>
+      <br>
+      <div class="content has-text-justified">
+        <p>
+          As a result, Vid2World unifies the high-fidelity synthesis 
+          of full-sequence diffusion with the causal reasoning and controllability 
+          of interactive world models, delivering high-fidelity, precise, and action-aware predictions 
+          in an auto-regressive manner.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 <section class="section">
   <div class="container is-max-desktop">
 
 <div class="rows">
   <div class="row is-full-width half-width">
-    <h2 class="title is-3"><span>iVideoGPT</span></h2>
+    <h2 class="columns is-centered has-text-centered">Vid2World</h2>
     <h3 class="title is-4">Architecture</h3>
     <div class="content has-text-centered">
       <img src="static/images/architecture.png" class="interpolation-image" width="85%"/>
