@@ -193,6 +193,84 @@
   </div>
 </section>
 
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <p style="margin-bottom: 0.5rem; text-align: left; margin-left: 6%;">
+        <b>Generation Result of Vid2World.</b> We show the generation results of Vid2World in the videos below.
+      </p>
+      <div class="carousel results-carousel">
+        <div class="item-2">
+          <video poster="" id="rollout-1" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/csgo/hdf5_dm_july2021_2554/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-1" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/csgo/hdf5_dm_july2021_2888/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-1" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/appendix/1/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-2" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/appendix/2/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-3" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/appendix/3/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-4" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/appendix/4/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-2" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/appendix/5/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-2" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/appendix/6/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-2" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/appendix/7/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-2" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/appendix/8/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-1" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/csgo/hdf5_dm_july2021_327/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-1" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/csgo/hdf5_dm_july2021_1018/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-1" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/csgo/hdf5_dm_july2021_1865/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <hr style="border: none; border-top: 1px dashed #9c9c9c; width: 100%;">
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="container is-max-desktop">
 
@@ -246,7 +324,7 @@
       </div>
       <br>
       <div class="content has-text-centered">
-        <img src="./static/images/concept.pdf" class="interpolation-image" width="100%" alt="Concept of VDM to IWM transformation.">
+        <img src="./static/images/concept.png" class="interpolation-image" width="100%" alt="Concept of VDM to IWM transformation.">
       </div>
       <div class="content has-text-justified">
         <p>
@@ -256,12 +334,12 @@
           From the training perspective, to enable auto-regressive generation capabilities, 
           it samples independent and uniform
           noise levels in different frames, following <a href="https://arxiv.org/abs/2407.01392">Diffusion Forcing</a>.
-          These changes retain the model’s learned visual priors while enabling unlimited-horizon, stepwise causal rollout.
+          These changes retain the model's learned visual priors while enabling unlimited-horizon, stepwise causal rollout.
         </p>
       </div>
       <br>
       <div class="content has-text-centered">
-        <img src="./static/images/mwt.pdf" class="interpolation-image" width="50%" alt="Mixed Weight Transfer.">
+        <img src="./static/images/mwt.png" class="interpolation-image" width="50%" alt="Mixed Weight Transfer.">
       </div>
       <br>
       <div class="content has-text-justified">
@@ -279,7 +357,7 @@
       </div>
       <br>
       <div class="content has-text-centered">
-        <img src="./static/images/method.pdf" class="interpolation-image" width="100%" alt="Training and Inference of Vid2World.">
+        <img src="./static/images/method.png" class="interpolation-image" width="100%" alt="Training and Inference of Vid2World.">
       </div>
       <br>
       <div class="content has-text-justified">
@@ -289,10 +367,64 @@
           of interactive world models, delivering high-fidelity, precise, and action-aware predictions 
           in an auto-regressive manner.
         </p>
+        <br>
       </div>
     </div>
   </div>
 </div>
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <p style="margin-bottom: 0.5rem; text-align: left; margin-left: 6%;">
+        <b>Generation Result of Vid2World.</b> We show the generation results of Vid2World in the videos below.
+      </p>
+      <div class="carousel results-carousel">
+        <div class="item-2">
+          <video poster="" id="rollout-1" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/appendix/1/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-2" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/appendix/2/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-3" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/appendix/3/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-4" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/appendix/4/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-2" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/appendix/5/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-2" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/appendix/6/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-2" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/appendix/7/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-2" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/appendix/8/pred_video.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <hr style="border: none; border-top: 1px dashed #9c9c9c; width: 100%;">
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="container is-max-desktop">
 
@@ -678,6 +810,52 @@
     </div>
   </div>
 </footer>
+
+<script>
+// 立即执行函数，不等待DOMContentLoaded
+(function() {
+  function playVideo(video) {
+    video.muted = true;
+    video.play().catch(function(error) {
+      console.log("Auto-play was prevented");
+      // 如果播放失败，尝试使用用户交互来触发播放
+      video.addEventListener('click', function() {
+        video.play();
+      }, { once: true });
+    });
+  }
+
+  // 立即处理所有视频
+  const videos = document.getElementsByTagName('video');
+  for (let video of videos) {
+    playVideo(video);
+  }
+
+  // 监听DOM变化，处理新添加的视频
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      mutation.addedNodes.forEach(function(node) {
+        if (node.nodeName === 'VIDEO') {
+          playVideo(node);
+        }
+      });
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // 监听轮播变化
+  const carousels = document.querySelectorAll('.carousel');
+  carousels.forEach(carousel => {
+    carousel.addEventListener('slide:change', function() {
+      const carouselVideos = carousel.getElementsByTagName('video');
+      for (let video of carouselVideos) {
+        playVideo(video);
+      }
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
