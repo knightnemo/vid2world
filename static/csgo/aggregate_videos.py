@@ -44,7 +44,30 @@ def combine_all_videos(video_pairs, output_path):
     video_section_width = target_width * len(gt_clips) + spacing * (len(gt_clips) - 1)
     # Total width is label width + video section width + spacing between label and videos
     total_width = label_width + spacing + video_section_width - 350
-    total_height = target_height * 2 + spacing * 3  # 2 rows of videos + spacing + labels
+    
+    # Calculate content height (without padding)
+    content_height = target_height * 2 + spacing * 3  # 2 rows of videos + spacing + labels
+    
+    # Calculate padding needed for Twitter's 16:9 aspect ratio
+    # For 16:9 ratio: height = width * 9/16
+    twitter_height = int(total_width * 9 / 16)
+    
+    # If content is taller than Twitter height, we'll need to adjust width instead
+    if content_height > twitter_height:
+        # Recalculate for width based on content height
+        twitter_width = int(content_height * 16 / 9)
+        # Add padding to width if needed
+        if twitter_width > total_width:
+            total_width = twitter_width
+            padding_vertical = 0
+        else:
+            padding_vertical = (twitter_height - content_height) // 2
+    else:
+        # Add padding to height
+        padding_vertical = (twitter_height - content_height) // 2
+    
+    # Final dimensions with padding
+    total_height = content_height + padding_vertical * 2
     
     # Create black background
     background = ColorClip(size=(total_width, total_height), color=(0, 0, 0))
@@ -57,17 +80,19 @@ def combine_all_videos(video_pairs, output_path):
     
     # Position the labels vertically centered in their rows and horizontally centered in label area
     label_center_x = label_width // 2
-    # Fix vertical alignment by considering spacing
-    gt_label = gt_label.set_position((label_center_x - gt_label.w // 2, spacing + (target_height - gt_label.h) // 2)).set_duration(background.duration)
-    pred_label = pred_label.set_position((label_center_x - pred_label.w // 2, target_height + spacing * 2 + (target_height - pred_label.h) // 2)).set_duration(background.duration)
+    # Fix vertical alignment by considering spacing and padding
+    gt_label = gt_label.set_position((label_center_x - gt_label.w // 2, 
+                                     padding_vertical + spacing + (target_height - gt_label.h) // 2)).set_duration(background.duration)
+    pred_label = pred_label.set_position((label_center_x - pred_label.w // 2, 
+                                         padding_vertical + target_height + spacing * 2 + (target_height - pred_label.h) // 2)).set_duration(background.duration)
     
     # Position the videos
     clips_to_composite = [background, gt_label, pred_label]
     
-    # Position GT videos in top row
+    # Position GT videos in top row (with vertical padding)
     x_pos = label_width + spacing  # Add spacing after label area
     for i, clip in enumerate(gt_clips):
-        clip = clip.set_position((x_pos, spacing))
+        clip = clip.set_position((x_pos, padding_vertical + spacing))
         clips_to_composite.append(clip)
         # Only add spacing if not the last video
         if i < len(gt_clips) - 1:
@@ -75,10 +100,10 @@ def combine_all_videos(video_pairs, output_path):
         else:
             x_pos += clip.w
     
-    # Position prediction videos in bottom row
+    # Position prediction videos in bottom row (with vertical padding)
     x_pos = label_width + spacing  # Add spacing after label area
     for i, clip in enumerate(pred_clips):
-        clip = clip.set_position((x_pos, target_height + spacing * 2))
+        clip = clip.set_position((x_pos, padding_vertical + target_height + spacing * 2))
         clips_to_composite.append(clip)
         # Only add spacing if not the last video
         if i < len(pred_clips) - 1:
@@ -128,7 +153,7 @@ def process_directory(directory):
                 video_pairs.append((gt_path, pred_path))
     
     if video_pairs:
-        output_path = os.path.join(output_dir, 'all_combined.mp4')
+        output_path = os.path.join(output_dir, 'all_combined_2.mp4')
         print(f'Processing {len(video_pairs)} video pairs...')
         try:
             combine_all_videos(video_pairs, output_path)
