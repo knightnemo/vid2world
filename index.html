@@ -292,6 +292,37 @@
             <source src="./static/csgo/hdf5_dm_july2021_1865/pred_video.mp4" type="video/mp4">
           </video>
         </div>
+        <div class="item-2">
+          <video poster="" id="rollout-1" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/recon/jackal_2019-08-02-17-42-37_66_r00_t0027_x_pred.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-1" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/recon/jackal_2019-08-06-14-12-43_19_r00_t0003_x_pred.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item-2">
+          <video poster="" id="rollout-1" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/recon/jackal_2019-08-08-17-03-33_21_r01_t0035_x_pred.mp4" type="video/mp4">
+          </video>
+        </div><div class="item-2">
+          <video poster="" id="rollout-1" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/recon/jackal_2019-08-20-15-36-44_4_r01_t0003_x_pred.mp4" type="video/mp4">
+          </video>
+        </div><div class="item-2">
+          <video poster="" id="rollout-1" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/recon/jackal_2019-10-24-13-35-07_2_r02_t0019_x_pred.mp4" type="video/mp4">
+          </video>
+        </div><div class="item-2">
+          <video poster="" id="rollout-1" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/recon/jackal_2019-12-21-12-16-24_9_r01_t0107_x_pred.mp4" type="video/mp4">
+          </video>
+        </div><div class="item-2">
+          <video poster="" id="rollout-1" autoplay controls muted loop playsinline height="100%" loading="lazy">
+            <source src="./static/recon/jackal_2020-01-03-15-33-07_3_r01_t0027_x_pred.mp4" type="video/mp4">
+          </video>
+        </div>
       </div>
       <hr style="border: none; border-top: 1px dashed #9c9c9c; width: 100%;">
     </div>
@@ -307,20 +338,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            World models, which predict transitions based on history observation and action sequences, 
-            have shown great promise in improving data efficiency for sequential decision making. 
-            However, existing world models often require extensive domain-specific training 
-            and still produce low-fidelity, coarse predictions, limiting their applicability in complex environments.
-             In contrast, video diffusion models trained on large, internet-scale datasets have 
-             demonstrated impressive capabilities in generating high-quality videos that 
-             capture diverse real-world dynamics. In this work, we present <b>Vid2World</b>, 
-             a general approach for leveraging and transferring pre-trained video diffusion models into interactive world models. 
-             To bridge the gap, Vid2World performs <b>casualization</b> of a pre-trained video diffusion model 
-             by crafting its architecture and training objective to enable autoregressive generation. 
-             Furthermore, it introduces a <b>causal action guidance</b> mechanism to enhance action 
-             controllability in the resulting interactive world model. Extensive experiments in robot manipulation 
-             and game simulation domains show that our method offers a scalable and effective approach for repurposing 
-             highly capable video diffusion models to interactive world models.
+            World models, which predict future transitions from past observation and action sequences, have shown great promise for improving data efficiency in sequential decision-making. However, existing world models often require extensive domain-specific training and still produce low-fidelity, coarse predictions, limiting their usefulness in complex environments. In contrast, video diffusion models trained on large-scale internet data have demonstrated impressive capabilities in generating high-quality videos that capture diverse real-world dynamics. In this work, we present _Vid2World_, a general approach for leveraging and transferring pre-trained video diffusion models into interactive world models. To bridge the gap, Vid2World systematically explores _video diffusion causalization_, reshaping both the architecture and training objective of pre-trained models to enable autoregressive generation. Additionally, it incorporates a _causal action guidance_ mechanism to enhance action controllability in the resulting interactive world models. Extensive experiments across multiple domains, including robot manipulation, 3D game simulation, and open-world navigation, demonstrate that our method offers a scalable and effective pathway for repurposing highly capable video diffusion models into interactive world models.
           </p>
         </div>
       </div>
@@ -339,6 +357,7 @@
           <strong>Vid2World</strong> is a general framework for 
           transforming full-sequence, non-causal, passive video diffusion models
           into autoregressive, interactive, action-conditioned world models.
+          At it's core, it represents a paradigm shift in world modeling from relying solely on expensive and limited action-labeled data to leveraging internet-scale action-free videos.
         </p>
         <p>
           Transforming a video diffusion model to an interactive world model demands solving two fundamental gaps:
@@ -351,13 +370,13 @@
       </div>
       <br>
       <div class="content has-text-centered">
-        <img src="./static/images/concept.png" class="interpolation-image" width="100%" alt="Concept of VDM to IWM transformation.">
+        <img src="./static/images/v2w_overview.png" class="interpolation-image" width="100%" alt="Concept of VDM to IWM transformation.">
       </div>
       <div class="content has-text-justified">
         <p>
           <b>Video Diffusion Causalization.</b> Vid2World re-architects the pretrained diffusion backbone 
           so that each frame is generated from past context only. 
-          From the architectural perspective, it applies causal masks to temporal attention layers, and proposed a mixed weight transfer scheme for temporal convolution layers.
+          From the architectural perspective, it applies causal masks to temporal attention layers, and explore novel weight transfer mechanisms for temporal convolution layers.
           From the training perspective, to enable auto-regressive generation capabilities, 
           it samples independent and uniform
           noise levels in different frames, following <a href="https://arxiv.org/abs/2407.01392">Diffusion Forcing</a>.
@@ -366,7 +385,7 @@
       </div>
       <br>
       <div class="content has-text-centered">
-        <img src="./static/images/mwt.png" class="interpolation-image" width="50%" alt="Mixed Weight Transfer.">
+        <img src="./static/images/weight_transfer.png" class="interpolation-image" width="100%" alt="Mixed Weight Transfer.">
       </div>
       <br>
       <div class="content has-text-justified">
@@ -384,7 +403,7 @@
       </div>
       <br>
       <div class="content has-text-centered">
-        <img src="./static/images/method.png" class="interpolation-image" width="100%" alt="Training and Inference of Vid2World.">
+        <img src="./static/images/main.png" class="interpolation-image" width="100%" alt="Training and Inference of Vid2World.">
       </div>
       <br>
       <div class="content has-text-justified">
@@ -525,6 +544,24 @@
       <div class="publication-video">
         <video id="dmlab" autoplay="" muted="" loop="" playsinline="" width="100%">
           <source src="./static/compare/comparison/92_comparison.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container is-max-desktop">
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-full-width has-text-justified">
+      <h2 class="title is-3 has-text-centered">🗺️ Vid2World for Open-World Navigation 🧭</h2>
+      <div class="content has-text-justified">
+        <p>
+          Here we make use of <a href="https://arxiv.org/abs/2104.05859">RECON</a>, a widely adopted open-world navigation dataset. We present a set of videos produced by Vid2World alongside the ground-truth videos (denoted as GT). Following standard baselines, the model is conditioned on the first four frames and the corresponding action sequence, with subsequent frames generated in an auto-regressive fashion. As shown in the results, Vid2World produces predictions that closely match the ground truth, demonstrating both high visual fidelity and consistent temporal coherence.
+        </p>
+      </div>
+
+      <div class="publication-video">
+        <video id="dmlab" autoplay="" muted="" loop="" playsinline="" width="100%">
+          <source src="static/recon/combined/all_combined.mp4" type="video/mp4">
         </video>
       </div>
     </div>
